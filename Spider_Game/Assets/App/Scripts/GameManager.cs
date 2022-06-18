@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
 	public void Restart()
 	{
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene(1);
 		gameOverCanvas.SetActive(false);
 	}
 
@@ -84,6 +84,9 @@ public class GameManager : MonoBehaviour
 			bestScore.text = "Best : " + highScore;
 		}
 	}
-
+	public void ReturnToMenu() 
+	{
+		SceneManager.LoadScene(0);
+	}
 
 }
