@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 	
 	[Header("Components")]
 	[SerializeField] private Rigidbody2D playerRg2D;
-	[SerializeField] GameObject player, gameOverCanvas, gamePlayCanvas;
+	[SerializeField] GameObject player, gameOverCanvas, gamePlayCanvas , finishCanvas;
 	[SerializeField] Slider m_Slider;
 	[SerializeField] TextMeshProUGUI inGameScore, finalScore, bestScore;
 	[SerializeField] Image textTapStart;
@@ -22,10 +22,18 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		gameOverCanvas.SetActive(false);
+		finishCanvas.SetActive(false);
 		gamePlayCanvas.SetActive(true);
 		textTapStart.gameObject.SetActive(true);
 		playerRg2D.bodyType = RigidbodyType2D.Static;
 		Time.timeScale = 1;
+	}
+	void Update()
+	{
+		if (scoreValue==6)
+		{
+			LoadGameAgain();
+		}
 	}
 
 	// Update is called once per frame
@@ -87,6 +95,19 @@ public class GameManager : MonoBehaviour
 	public void ReturnToMenu() 
 	{
 		SceneManager.LoadScene(0);
+	}
+
+	private void LoadGameAgain() 
+	{
+		StartCoroutine("ReLoad");
+		BestScore();
+	}
+	private IEnumerator ReLoad() 
+	{
+		finishCanvas.SetActive(true);
+		yield return new WaitForSeconds(3f);
+		finishCanvas.SetActive(false);
+		SceneManager.LoadScene(1);
 	}
 
 }
